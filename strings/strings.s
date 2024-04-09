@@ -1,176 +1,176 @@
 ;该部分是arm9内的文本数据
 .create ".\.temp\root\ftc\arm9.bin",0
-    .incbin ".\strings\ftc\arm9.bin"
+    .incbin ".\strings\TextOfSystem\arm9.bin"
 .close
 
 ;该部分是overlay部分的文本数据
 .create ".\.temp\root\ftc\overlay9_0",0
-    .incbin ".\strings\overlay\overlay9_0"
+    .incbin ".\strings\TextOfSystem\overlay9_0"
 .close
 
 ;该部分是res文件夹内的文本资源
 .create ".\.temp\root\res\rfItemAttr.bin",0
-    .incbin ".\strings\data\res\rfItemAttr.bin"
+    .incbin ".\strings\TextOfNormal\rfItemAttr.bin"
 .close
 
 .create ".\.temp\root\res\rfItemHelp.bin",0
-    .incbin ".\strings\data\res\rfItemHelp.bin"
+    .incbin ".\strings\TextOfNormal\rfItemHelp.bin"
 .close
 
 .create ".\.temp\root\res\rfItemName.bin",0
-    .incbin ".\strings\data\res\rfItemName.bin"
+    .incbin ".\strings\TextOfNormal\rfItemName.bin"
 .close
 
 .create ".\.temp\root\res\rfItemType.bin",0
-    .incbin ".\strings\data\res\rfItemType.bin"
+    .incbin ".\strings\TextOfNormal\rfItemType.bin"
 .close
 
 .create ".\.temp\root\res\rfTxtCalendar.bin",0
-    .incbin ".\strings\data\res\rfTxtCalendar.bin"
+    .incbin ".\strings\TextOfNormal\rfTxtCalendar.bin"
 .close
 
 .create ".\.temp\root\res\rfTxtCardError.bin",0
-    .incbin ".\strings\data\res\rfTxtCardError.bin"
+    .incbin ".\strings\TextOfNormal\rfTxtCardError.bin"
 .close
 
 .create ".\.temp\root\res\rfTxtItemShop.bin",0
-    .incbin ".\strings\data\res\rfTxtItemShop.bin"
+    .incbin ".\strings\TextOfNormal\rfTxtItemShop.bin"
 .close
 
 .create ".\.temp\root\res\rfTxtLoadMsg.bin",0
-    .incbin ".\strings\data\res\rfTxtLoadMsg.bin"
+    .incbin ".\strings\TextOfNormal\rfTxtLoadMsg.bin"
 .close
 
 .create ".\.temp\root\res\rfTxtMenuFarm.bin",0
-    .incbin ".\strings\data\res\rfTxtMenuFarm.bin"
+    .incbin ".\strings\TextOfNormal\rfTxtMenuFarm.bin"
 .close
 
 .create ".\.temp\root\res\rfTxtMonsterAbility.bin",0
-    .incbin ".\strings\data\res\rfTxtMonsterAbility.bin"
+    .incbin ".\strings\TextOfNormal\rfTxtMonsterAbility.bin"
 .close
 
 .create ".\.temp\root\res\rfTxtMonsterKind.bin",0
-    .incbin ".\strings\data\res\rfTxtMonsterKind.bin"
+    .incbin ".\strings\TextOfNormal\rfTxtMonsterKind.bin"
 .close
 
 .create ".\.temp\root\res\rfTxtNameEntry.bin",0
-    .incbin ".\strings\data\res\rfTxtNameEntry.bin"
+    .incbin ".\strings\TextOfNormal\rfTxtNameEntry.bin"
 .close
 
 .create ".\.temp\root\res\rfTxtNameEntryDef.bin",0
-    .incbin ".\strings\data\res\rfTxtNameEntryDef.bin"
+    .incbin ".\strings\TextOfNormal\rfTxtNameEntryDef.bin"
 .close
-
-.create ".\.temp\root\res\rfTxtNameEntryInput.bin",0
-    .incbin ".\strings\data\res\rfTxtNameEntryInput.bin"
-.close
+;此文件现有改动没太大必要，若确需改为汉字时，另行调整
+;.create ".\.temp\root\res\rfTxtNameEntryInput.bin",0
+;    .incbin ".\strings\TextOfNormal\rfTxtNameEntryInput.bin"
+;.close
 
 .create ".\.temp\root\res\rfTxtNPCName.bin",0
-    .incbin ".\strings\data\res\rfTxtNPCName.bin"
+    .incbin ".\strings\TextOfNormal\rfTxtNPCName.bin"
 .close
 
 .create ".\.temp\root\res\rfTxtSavePointName.bin",0
-    .incbin ".\strings\data\res\rfTxtSavePointName.bin"
+    .incbin ".\strings\TextOfNormal\rfTxtSavePointName.bin"
 .close
 
 .create ".\.temp\root\res\rfTxtSchedule.bin",0
-    .incbin ".\strings\data\res\rfTxtSchedule.bin"
+    .incbin ".\strings\TextOfNormal\rfTxtSchedule.bin"
 .close
 
 .create ".\.temp\root\res\rfTxtSynthesis.bin",0
-    .incbin ".\strings\data\res\rfTxtSynthesis.bin"
+    .incbin ".\strings\TextOfNormal\rfTxtSynthesis.bin"
 .close
 
 .create ".\.temp\root\res\txt\event.bin",0
-    .incbin ".\strings\data\res\txt\event.bin"
+    .incbin ".\strings\TextOfEvent\event.bin"
 .close
 
 /*
 ;该部分是arm9内的文本数据
 .create ".\.temp\root\ftc\arm9.bin",0
-    .include ".\strings\ftc\arm9.s"
+    .include ".\strings\TextOfSystem\arm9.s"
 .close
 
 ;该部分是overlay部分的文本数据
 .create ".\.temp\root\ftc\overlay9_0",0
-    .include ".\strings\overlay\overlay9_0.s"
+    .include ".\strings\TextOfSystem\overlay9_0.s"
 .close
 */
 /*
 ;该部分是res文件夹内的文本资源
 .create ".\.temp\root\res\rfItemAttr.bin",0
-    .include ".\strings\data\res\rfItemAttr.s"
+    .include ".\strings\TextOfNormal\rfItemAttr.s"
 .close
 
 .create ".\.temp\root\res\rfItemHelp.bin",0
-    .include ".\strings\data\res\rfItemHelp.s"
+    .include ".\strings\TextOfNormal\rfItemHelp.s"
 .close
 
 .create ".\.temp\root\res\rfItemName.bin",0
-    .include ".\strings\data\res\rfItemName.s"
+    .include ".\strings\TextOfNormal\rfItemName.s"
 .close
 
 .create ".\.temp\root\res\rfItemType.bin",0
-    .include ".\strings\data\res\rfItemType.s"
+    .include ".\strings\TextOfNormal\rfItemType.s"
 .close
 
 .create ".\.temp\root\res\rfTxtCalendar.bin",0
-    .include ".\strings\data\res\rfTxtCalendar.s"
+    .include ".\strings\TextOfNormal\rfTxtCalendar.s"
 .close
 
 .create ".\.temp\root\res\rfTxtCardError.bin",0
-    .include ".\strings\data\res\rfTxtCardError.s"
+    .include ".\strings\TextOfNormal\rfTxtCardError.s"
 .close
 
 .create ".\.temp\root\res\rfTxtItemShop.bin",0
-    .include ".\strings\data\res\rfTxtItemShop.s"
+    .include ".\strings\TextOfNormal\rfTxtItemShop.s"
 .close
 
 .create ".\.temp\root\res\rfTxtLoadMsg.bin",0
-    .include ".\strings\data\res\rfTxtLoadMsg.s"
+    .include ".\strings\TextOfNormal\rfTxtLoadMsg.s"
 .close
 
 .create ".\.temp\root\res\rfTxtMenuFarm.bin",0
-    .include ".\strings\data\res\rfTxtMenuFarm.s"
+    .include ".\strings\TextOfNormal\rfTxtMenuFarm.s"
 .close
 
 .create ".\.temp\root\res\rfTxtMonsterAbility.bin",0
-    .include ".\strings\data\res\rfTxtMonsterAbility.s"
+    .include ".\strings\TextOfNormal\rfTxtMonsterAbility.s"
 .close
 
 .create ".\.temp\root\res\rfTxtMonsterKind.bin",0
-    .include ".\strings\data\res\rfTxtMonsterKind.s"
+    .include ".\strings\TextOfNormal\rfTxtMonsterKind.s"
 .close
 
 .create ".\.temp\root\res\rfTxtNameEntry.bin",0
-    .include ".\strings\data\res\rfTxtNameEntry.s"
+    .include ".\strings\TextOfNormal\rfTxtNameEntry.s"
 .close
-
-.create ".\.temp\root\res\rfTxtNameEntryDef.bin",0
-    .include ".\strings\data\res\rfTxtNameEntryDef.s"
-.close
+;此文件现有改动没太大必要，若确需改为汉字时，另行调整
+;.create ".\.temp\root\res\rfTxtNameEntryDef.bin",0
+;    .include ".\strings\TextOfNormal\rfTxtNameEntryDef.s"
+;.close
 
 .create ".\.temp\root\res\rfTxtNameEntryInput.bin",0
-    .include ".\strings\data\res\rfTxtNameEntryInput.s"
+    .include ".\strings\TextOfNormal\rfTxtNameEntryInput.s"
 .close
 
 .create ".\.temp\root\res\rfTxtNPCName.bin",0
-    .include ".\strings\data\res\rfTxtNPCName.s"
+    .include ".\strings\TextOfNormal\rfTxtNPCName.s"
 .close
 
 .create ".\.temp\root\res\rfTxtSavePointName.bin",0
-    .include ".\strings\data\res\rfTxtSavePointName.s"
+    .include ".\strings\TextOfNormal\rfTxtSavePointName.s"
 .close
 
 .create ".\.temp\root\res\rfTxtSchedule.bin",0
-    .include ".\strings\data\res\rfTxtSchedule.s"
+    .include ".\strings\TextOfNormal\rfTxtSchedule.s"
 .close
 
 .create ".\.temp\root\res\rfTxtSynthesis.bin",0
-    .include ".\strings\data\res\rfTxtSynthesis.s"
+    .include ".\strings\TextOfNormal\rfTxtSynthesis.s"
 .close
 
 .create ".\.temp\root\res\txt\event.bin",0
-    .include ".\strings\data\res\txt\event.s"
+    .include ".\strings\TextOfEvent\event.s"
 .close
 */
