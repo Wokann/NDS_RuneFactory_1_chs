@@ -2,17 +2,20 @@
 
 # 定义变量
 CC = gcc
-CFLAGS = -W"all" -W"extra" -std=c11
+CFLAGS = -W"all" -W"extra" -std=c11 -g
+
+SRC = transMsg.c headerMode.c mainMode.c footerMode.c
+TARGET = transMsg
 
 # 默认目标
-all: transMsg
+all: $(TARGET)
 
 
 # 编译规则 
-transMsg: transMsg.c
-	$(CC) -g transMsg.c $(CFLAGS) -o transMsg.exe
+$(TARGET): $(SRC)
+	$(CC) $(CFLAGS) $^ -o $@
 
 # 清理规则
 clean:
-	rm -f transMsg.exe
+	rm -f $(TARGET)
 

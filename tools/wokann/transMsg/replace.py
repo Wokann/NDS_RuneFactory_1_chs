@@ -29,7 +29,7 @@ def merge_translations(folder1, folder2):
 
 if __name__ == "__main__":
     # 文件夹的完整路径
-    folder1 = "strings/font_jp"
-    folder2 = "strings/font_jp_or"
+    folder1 = "./strings/TextOfNormal"
+    folder2 = "./strings/TextOfNormal_jp"
 
     merge_translations(folder1, folder2)
