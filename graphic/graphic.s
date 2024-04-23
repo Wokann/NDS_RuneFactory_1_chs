@@ -1,6 +1,12 @@
 ;该部分是res文件夹内的图片资源
-.create ".\.temp\root\res\font12x12.NFTR",0
-    .incbin ".\graphic\res\font12x12.NFTR"
+.open ".\.temp\root\res\font12x12.NFTR",0
+;替换从shiftJIs码表亚开始的汉字，可用空间总共为2965个汉字
+;新字库汉字字模
+.org 0x6A8C
+    .incbin ".\graphic\font\chinese_char_tile.2bpp"
+;新字库汉字字模统一宽度相关数据为：01 0A 0C
+.org 0x2146C
+    .incbin ".\graphic\font\chinese_char_width.bin"
 .close
 
 .create ".\.temp\root\res\obj_input02.NCGR",0
