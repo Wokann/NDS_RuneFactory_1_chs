@@ -1,4 +1,5 @@
 .nds
+/*
 .create ".\strings\TextOfNormal_jp1\rfItemAttr.bin",0
 .loadtable ".\charmap_jp.txt"
     .include ".\strings\TextOfNormal_jp\rfItemAttr.s"
@@ -87,4 +88,16 @@
 .create ".\strings\TextOfNormal_jp1\rfTxtSynthesis.bin",0
 .loadtable ".\charmap_jp.txt"
     .include ".\strings\TextOfNormal_jp\rfTxtSynthesis.s"
+.close
+
+.create ".\strings\TextOfNormal_jp1\rfTxtSynthesis.bin",0
+.loadtable ".\charmap_jp.txt"
+    .include ".\strings\TextOfNormal_jp\rfTxtSynthesis.s"
+.close
+*/
+.create ".\strings\TextOfEvent_jp1\event.bin",0
+.close
+.open ".\strings\TextOfEvent_jp\event.bin",".\strings\TextOfEvent_jp1\event.bin",0
+.loadtable ".\charmap_jp_reverse_widthchar.txt"
+    .include ".\strings\TextOfEvent_jp\event.s"
 .close

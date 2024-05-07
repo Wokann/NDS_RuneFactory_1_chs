@@ -9,6 +9,7 @@ int main(int argc, char *argv[]) {
     char *inputFile = NULL;
     char *charmapFile = NULL;
     char headerMode = 0;
+    char mainMode = 0;
     char footerMode = 0;
     unsigned int endMarker = 0;
 
@@ -31,7 +32,10 @@ int main(int argc, char *argv[]) {
         else if (strcmp(argv[i], "-h") == 0 && (i + 1) < argc){
             headerMode = strtol(argv[i + 1], NULL, 10);
             i++;
-
+        }
+        else if (strcmp(argv[i], "-m") == 0 && (i + 1) < argc){
+            mainMode = strtol(argv[i + 1], NULL, 10);
+            i++;
         }
         else if (strcmp(argv[i], "-f") == 0 && (i + 1) < argc){
             footerMode = strtol(argv[i + 1], NULL, 10);;
@@ -46,12 +50,13 @@ int main(int argc, char *argv[]) {
             printf("TransMsg tool made by wokann.(Version 20240409)\n");
             printf("Usage:\n");
             printf("\n");
-            printf("    transMsg.exe -i inputFile -c charmapFile -h headerMode -f footerMode -em endMarker\n");
+            printf("    transMsg.exe -i inputFile -c charmapFile -h headerMode -m mainMode -f footerMode -em endMarker\n");
             printf("\n");
             printf("Standard option:\n");
             printf("    -i [inputBinaryFile]        Files need to be decode.\n");
             printf("    -c [charmapFile]            Files used to transfer hex to char, must be utf-8 encoding.\n");
             printf("    -h [headerMode]             Modes which Files used in header.\n");
+            printf("    -h [mainMode]             Modes which Files used in main.\n");
             printf("    -f [footerMode]             Modes which Files used in footer.\n");
             printf("    -em [endMarker]          Hex Value marked for end.\n");
             printf("Another option:\n");
@@ -69,7 +74,7 @@ int main(int argc, char *argv[]) {
     }
 
     decodeBianryFileHeader(inputFile,headerMode);
-    decodeBinaryFileMain(inputFile, charmapFile, headerMode, endMarker);
+    decodeBinaryFileMain(inputFile, charmapFile, mainMode, endMarker);
     decodeBianryFileFooter(inputFile,footerMode);
     joinMsg(inputFile);
 
@@ -135,8 +140,8 @@ void decodeBianryFileHeader(char* inputFile,char headerMode){
 }
 
 // 函数用于创建不同的文件正文格式
-void decodeBinaryFileMain(char* inputFile, char* charmapFile, char headerMode, unsigned int endMarker){
-    switch(headerMode){
+void decodeBinaryFileMain(char* inputFile, char* charmapFile, char mainMode, unsigned int endMarker){
+    switch(mainMode){
         case 0:
             main_Mode_0(inputFile, charmapFile, endMarker);
             break;
@@ -151,6 +156,9 @@ void decodeBinaryFileMain(char* inputFile, char* charmapFile, char headerMode, u
             break;
         case 4:
             main_Mode_4(inputFile, charmapFile, endMarker);
+            break;
+        case 5:
+            main_Mode_5(inputFile, charmapFile, endMarker);
             break;
         default:
             break;

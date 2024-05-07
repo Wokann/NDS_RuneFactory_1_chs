@@ -11,6 +11,6 @@ setlocal enabledelayedexpansion
     set asmFile1=.\tools\wokann\transMsg\testasmjoin.asm
     set asmFile2=.\tools\wokann\transMsg\testasmjoin_jp.asm
 
-    %tool_armips% %asmFile1%
+    :: %tool_armips% %asmFile1%
     %tool_armips% %asmFile2%
 endlocal

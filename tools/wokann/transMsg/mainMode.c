@@ -804,7 +804,10 @@ void main_Mode_4(char* inputFile, char* charmapFile, unsigned int endMarker){
 }
 
 // 模式5：
-// 待定
+// 此模式为未解析清楚RuneFactory1_(jp)-event.bin的脚本语言的情况下
+// 仅解码文本部分内容的模式，为固定地址，有限长度，暂不可动态变化。
+// 以0x09为文本起始符，0x01为结束符（必定存在0x03 0x01结构）
+// 已知适用游戏：RuneFactory1_(jp)-event.bin
 void main_Mode_5(char* inputFile, char* charmapFile, unsigned int endMarker){
     // 打开文本文件
     FILE* input = fopen(inputFile, "rb");
@@ -842,28 +845,59 @@ void main_Mode_5(char* inputFile, char* charmapFile, unsigned int endMarker){
     struct CharMap* charmap;
     loadCharMap(charmapFile, &charmap, &charmapSize);   // 读取码表，存入码值及对应字符
     
-    // 获得子文本数量
-    unsigned int textsPointerDataSize, textsCount;
-    fseek(input, 4, SEEK_SET);
-    fread(&textsPointerDataSize,sizeof(unsigned int),1,input);
-    textsCount = textsPointerDataSize / 8;
-    // 获得子文本指针，并转为绝对地址
-    unsigned int fileSize, textsBaseOffset;
+    // 制作文本指针列表
+    unsigned int fileSize, textsCount, pointertemp, textcountstart;
     unsigned int *textsPointer = NULL;
+    unsigned int *textsPointerEnd = NULL;
     fseek(input, 0, SEEK_END);
     fileSize = ftell(input);
-    textsBaseOffset = 0;
-    textsPointer = malloc((textsCount + 1) * sizeof(unsigned int));
-    if (textsPointer == NULL) {
-        perror("Error allocating memory for textsPointer");
-        exit(EXIT_FAILURE);
+    fseek(input, 0x60C, SEEK_SET);
+    textsCount = 0;
+    pointertemp = 0;
+    textcountstart = 0;
+    while (ftell(input) < fileSize){
+        // 读取单字节
+        unsigned char buffer[1];
+        size_t bytesRead = fread(buffer, sizeof(buffer[0]), sizeof(buffer), input);
+        unsigned int hexValueByte, hexValueHalfWord;
+        hexValueByte = buffer[0];
+
+        // 检查是否是0x09
+        if (hexValueByte == 0x09){
+            // 读取下一字节是否处于可取值范围
+            bytesRead = fread(buffer, sizeof(buffer[0]), sizeof(buffer), input);
+            hexValueByte = buffer[0];
+            bytesRead = fread(buffer, sizeof(buffer[0]), sizeof(buffer), input);
+            hexValueHalfWord = buffer[0] + (hexValueByte << 8);
+            char* utf8Char = NULL;
+            
+            for (size_t j = 0; j < charmapSize; j++){
+                if ((charmap[j].hexValue == hexValueHalfWord || charmap[j].hexValue == hexValueByte)&& hexValueByte !=0x03 && hexValueHalfWord != 0x03 && hexValueHalfWord != 0x4B00 && hexValueHalfWord != 0x5000 && hexValueHalfWord != 0xDC00){
+                    printf("%d: %04x,",textsCount,hexValueHalfWord);
+                    textsPointer = realloc(textsPointer, (textsCount + 1) * sizeof(unsigned int));
+                    pointertemp = ftell(input) - 2;                     // 暂存文本起点地址
+                    textsPointer[(textsCount)] = pointertemp;       // 存入本条文本地址
+                    textcountstart = 1;
+                }
+            }
+            fseek(input, -2, SEEK_CUR);
+        }
+        // 检查是否是0x03
+        if(hexValueByte == 0x03 && textcountstart == 1){
+            // 读取下一字节是否为0x01
+            bytesRead = fread(buffer, sizeof(buffer[0]), sizeof(buffer), input);
+            hexValueByte = buffer[0];
+            if(hexValueByte == 0x01){
+                textsPointerEnd = realloc(textsPointerEnd, (textsCount + 1) * sizeof(unsigned int));
+                pointertemp = ftell(input) - 1;                 // 暂存文本终点地址
+                textsPointerEnd[(textsCount)] = pointertemp;    // 存入本条文本地址
+                printf("%d: S-%06x,E-%06x,%06x. ",textsCount,textsPointer[textsCount],textsPointerEnd[textsCount],ftell(input));
+                textsCount++;
+                textcountstart = 0;
+            }
+            fseek(input, -1, SEEK_CUR);
+        }
     }
-    for (int i = 0; i < textsCount; i++) {
-        fseek(input, (i * 8) + 4, SEEK_SET);
-        fread(&textsPointer[i], sizeof(unsigned int), 1, input);
-        textsPointer[i] += textsBaseOffset;
-    }
-    textsPointer[textsCount] = fileSize;
     //for(unsigned int i = 0; i <= textsCount; i++) {
     //    printf("%d: %04x,",i,textsPointer[i]);
     //}
@@ -873,9 +907,9 @@ void main_Mode_5(char* inputFile, char* charmapFile, unsigned int endMarker){
         unsigned int OffsetNow,OffsetNext;
         unsigned char textBuffer[65536]={0};
         OffsetNow = textsPointer[i];
-        OffsetNext = textsPointer[i+1];
+        OffsetNext = textsPointerEnd[i];
         fseek(input,OffsetNow,SEEK_SET);
-        while ((ftell(input) < OffsetNext) && (OffsetNow < fileSize)){  // 文本索引未指向下一文本地址
+        while ((ftell(input) < OffsetNext)){  // 文本索引未指向下一文本地址
             // 读取多字节
             unsigned char buffer[3];
             size_t bytesRead = fread(buffer, sizeof(buffer[0]), sizeof(buffer), input);
@@ -932,16 +966,22 @@ void main_Mode_5(char* inputFile, char* charmapFile, unsigned int endMarker){
             // 矫正指针位置
             fseek(input, Length - bytesRead, SEEK_CUR);
             // 文本检索到的hex值为文本结束符时，进行截断（可选）
-            if ((select[0]|select[1]|select[2] == 1) && (hexValue == endMarker))
-                break;
+            //if ((select[0]|select[1]|select[2] == 1) /*&& (hexValue == endMarker)*/)
+            //   break;
         }
         // 子文本标签，将第i条暂存文本写入原文区和译文区
+        
+        fprintf(mainTemp, ".org 0x%06X\n", textsPointer[i]);
         fprintf(mainTemp, "%s_%03d:\n", inputFileName,i);
+        fprintf(mainTemp, ".area %d,0\n",(textsPointerEnd[i]-textsPointer[i]));
         fprintf(mainTemp, ";原文－－－－－－－－－－－－－－－－－－－－－－\n");
         fprintf(mainTemp, ";   .strn \"%s\"\n",textBuffer);
         fprintf(mainTemp, ";译文－－－－－－－－－－－－－－－－－－－－－－\n");
         fprintf(mainTemp, "    .strn \"%s\"\n",textBuffer);
-        fprintf(mainTemp, ";结束－－－－－－－－－－－－－－－－－－－－－－\n\n\n");
+        fprintf(mainTemp, ";结束－－－－－－－－－－－－－－－－－－－－－－\n");
+        fprintf(mainTemp, ".endarea\n\n\n");
+        
+        //fprintf(mainTemp, "%d,0x%06X,%d,.strn \"%s\"\n", i,textsPointer[i],(textsPointerEnd[i]-textsPointer[i]),textBuffer);
     }
     free(textsPointer);
     fclose(input);
