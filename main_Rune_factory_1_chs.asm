@@ -9,7 +9,7 @@
 ;.include ".\src\arm9_hook.s"
 ;.include ".\src\arm9_insert.s"
 ;.include ".\src\overlay9_0_hook.s"
-.notice "chsfunction done."
+;.notice "chsfunction done."
 
 ;图片汉化部分
 .include ".\graphic\graphic.s"

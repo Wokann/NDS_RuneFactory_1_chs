@@ -19,3 +19,9 @@ EntranceOfArm9          equ 0x02000800
 .expfunc BIT(n)         ,(1 << (n))
 
 DS_FRAME_RATE           equ 59.8261
+/*
+0x0208656C
+0x02088908
+6fcb0
+6fcc4
+6fcd8*/

@@ -1,5 +1,8 @@
 ;该部分是arm9内的文本数据
+
+;以下文件均采用charmap_chs.txt码表
 .open ".\.temp\root\ftc\arm9.bin",0x02000000
+.loadtable ".\charmap_chs.txt"
     ;.incbin ".\strings\TextOfSystem\arm9.bin"
     .include ".\strings\TextOfSystem\TextIn_arm9_000.s"
     .include ".\strings\TextOfSystem\TextIn_arm9_001.s"
@@ -18,6 +21,7 @@
 .close
 
 ;该部分是res文件夹内的文本资源
+;以下文件均采用charmap_chs.txt码表
 .create ".\.temp\root\res\rfItemAttr.bin",0
 .loadtable ".\charmap_chs.txt"
     .include ".\strings\TextOfNormal\rfItemAttr.s"
@@ -78,11 +82,6 @@
     .include ".\strings\TextOfNormal\rfTxtNameEntry.s"
 .close
 
-.create ".\.temp\root\res\rfTxtNameEntryDef.bin",0
-.loadtable ".\charmap_chs_reverse.txt"
-    .include ".\strings\TextOfNormal\rfTxtNameEntryDef.s"
-.close
-
 ;输入法的中文汉字‘二’调整为日文假名的‘ニ’。
 .create ".\.temp\root\res\rfTxtNameEntryInput.bin",0
 .loadtable ".\charmap_chs.txt"
@@ -109,7 +108,14 @@
     .include ".\strings\TextOfNormal\rfTxtSynthesis.s"
 .close
 
-.create ".\.temp\root\res\txt\event.bin",0
-    .incbin ".\strings\TextOfEvent\event.bin"
-;    .include ".\strings\TextOfEvent\event.s"
+;以下文件均采用charmap_chs_reverse.txt倒序码表
+.create ".\.temp\root\res\rfTxtNameEntryDef.bin",0
+.loadtable ".\charmap_chs_reverse.txt"
+    .include ".\strings\TextOfNormal\rfTxtNameEntryDef.s"
+.close
+
+;以下文件均采用charmap_chs_reverse_widthchar.txt倒序码表+单改双字节
+.open ".\.temp\root\res\txt\event.bin",0
+.loadtable ".\charmap_chs_reverse_widthchar.txt"
+    .include ".\strings\TextOfEvent\event.s"
 .close
