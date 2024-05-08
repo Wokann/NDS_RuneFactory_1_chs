@@ -3,7 +3,6 @@
 ;以下文件均采用charmap_chs.txt码表
 .open ".\.temp\root\ftc\arm9.bin",0x02000000
 .loadtable ".\charmap_chs.txt"
-    ;.incbin ".\strings\TextOfSystem\arm9.bin"
     .include ".\strings\TextOfSystem\TextIn_arm9_000.s"
     .include ".\strings\TextOfSystem\TextIn_arm9_001.s"
     .include ".\strings\TextOfSystem\TextIn_arm9_002.s"
@@ -15,9 +14,10 @@
 .close
 
 ;该部分是overlay部分的文本数据
-.create ".\.temp\root\ftc\overlay9_0",0
-    .incbin ".\strings\TextOfSystem\overlay9_0"
-;    .include ".\strings\TextOfSystem\TextIn_overlay9_0.s"
+.open ".\.temp\root\ftc\overlay9_0",0x022D0000
+.loadtable ".\charmap_chs.txt"
+    ;.incbin ".\strings\TextOfSystem\overlay9_0"
+    .include ".\strings\TextOfSystem\TextIn_overlay9_0.s"
 .close
 
 ;该部分是res文件夹内的文本资源
