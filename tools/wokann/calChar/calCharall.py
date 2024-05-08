@@ -18,13 +18,8 @@ def extract_characters_from_file(file_path):
     with open(file_path, 'r', encoding='utf-8') as file:
         content = file.read()
 
-    # 使用正则表达式提取特定结构内的字符
-    pattern = r'\s{4}\.strn\s*"(.*?)"'
-    matches = re.findall(pattern, content, re.DOTALL)
-
-    characters = set()
-    for match in matches:
-        characters.update(match)
+    # 使用正则表达式提取所有字符
+    characters = set(content)
 
     return characters
 
@@ -46,7 +41,7 @@ if __name__ == "__main__":
     folder_path = "strings"
     result = extract_characters_from_folder(folder_path)
 
-    output_file = "./tools/wokann/calChar/char.txt"
+    output_file = "./tools/wokann/calChar/charall.txt"
     write_to_file(result, output_file)
 
     print(f"提取的字符已按 Unicode 顺序写入到 {output_file}")

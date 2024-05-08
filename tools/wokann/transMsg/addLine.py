@@ -16,19 +16,19 @@ def modify_newlines_in_file(file_path):
 
         for line in lines:
             if ";   .strn \"" in line:
-                line = line.replace("{换行}", "{换行}\"\n;   .strn \"")
-                line = line.replace("{换页}", "{换页}\"\n;   .strn \"")
-                line = line.replace(":名字}", ":名字}\"\n;   .strn \"")
+                line = line.replace("{换行1}", "{换行1}\"\n;   .strn \"")
+                #line = line.replace("{换页}", "{换页}\"\n;   .strn \"")
+                #line = line.replace(":名字}", ":名字}\"\n;   .strn \"")
 
             elif "    .strn \"" in line:
-                line = line.replace("{换行}", "{换行}\"\n    .strn \"")
-                line = line.replace("{换页}", "{换页}\"\n    .strn \"")
-                line = line.replace(":名字}", ":名字}\"\n    .strn \"")
+                line = line.replace("{换行1}", "{换行1}\"\n    .strn \"")
+                #line = line.replace("{换页}", "{换页}\"\n    .strn \"")
+               # line = line.replace(":名字}", ":名字}\"\n    .strn \"")
 
             file.write(line)
 
         file.truncate()  # 截断文件，删除多余的行
 
 if __name__ == "__main__":
-    folder_path = "strings/font_jp"
+    folder_path = "strings/TextOfEvent"
     modify_newlines_in_folder(folder_path)
