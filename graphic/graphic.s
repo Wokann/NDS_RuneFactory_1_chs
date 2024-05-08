@@ -3,7 +3,14 @@
 ;替换从shiftJIs码表亚开始的汉字，可用空间总共为2965个汉字
 ;新字库汉字字模
 .org 0x6A8C
-    .incbin ".\graphic\font\chinese_char_tile.2bpp"
+    ;原版汉字字体为华综体，本次也使用该字体
+    ;.incbin ".\graphic\font\chinese_char_tile.2bpp"
+    ;字深
+    ;.incbin ".\graphic\font\chinese_char_tile_hunhou.2bpp"
+    ;.incbin ".\graphic\font\chinese_char_tile_ruili.2bpp"
+    ;字浅(接近原版字体深浅)
+    ;.incbin ".\graphic\font\chinese_char_tile_pinghua.2bpp"
+    .incbin ".\graphic\font\chinese_char_tile_xili.2bpp"
 ;新字库汉字字模统一宽度相关数据为：01 0A 0C
 .org 0x2146C
     .incbin ".\graphic\font\chinese_char_width.bin"
