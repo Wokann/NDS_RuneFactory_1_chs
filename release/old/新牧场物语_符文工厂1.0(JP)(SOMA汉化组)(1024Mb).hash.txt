@@ -1,0 +1,4 @@
+Rune_factory_1_chs.nds
+CRC32: 53a62136
+MD5  : 844dc5e99fdbede016be3bd3ff8a7d38
+SHA1 : ddf6047ccd230a7fcf7a9d21a73839f266d6cc32
