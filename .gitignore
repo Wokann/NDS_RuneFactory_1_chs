@@ -1,5 +1,6 @@
 *.nds
 *.sav
+*.dsv
 .temp*
 .vscode
 .git
